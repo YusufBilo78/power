@@ -139,7 +139,7 @@ $$\min\{J(\tilde u):\tilde u\in\tilde U,\ \tilde N\tilde u=G\xi+c,\ \|\xi\|_\inf
 
 **(i) Gözlemci tabanlı yöntem (Bölüm 7, s. 1585–1586).** Amaç ikili değişken sayısının $N$'ye bağımlılığını kaldırmaktır.
 
-- Her senaryo için Luenberger tipi bir gözlemci kurulur, $x̂_0=c_0$:
+- Her senaryo için Luenberger tipi bir gözlemci kurulur, $\hat x_0=c_0$:
 $$\hat x_{k+1}=A\hat x_k+Bu_k+r+L(y_k-\hat y_k) \quad (41)$$
 $$\hat y_k=C\hat x_k+s \quad (42)$$
   Hatalar girişten bağımsızdır ((43)–(44)); hata sınırları $\hat E_k,\hat F_k$ özyinelemeli zonotoplardır ((45)–(46)).
@@ -442,7 +442,7 @@ $$\tilde y_{L+1:k}\notin\tilde\Psi_{L+1:k}(\tilde u^{CL}_{L+1:k-1},i,\hat X_{L+1
 - **Teorem 5:** $\bar N<\infty$ ise Algoritma 1 en fazla $\beta\le\bar N$ adımda $|\mathbb I_{\text{out}}|=1$ ile sonlanır. Elenen her $i$ için $\tilde y_{0:\beta}\notin\tilde\Psi_{0:\beta}(\tilde u^{CL}_{0:\beta-1},i,X_0(i))$ (26) sağlanır, yani elemeler doğrudur.
   *İspat fikri (s. 116):* $T_k=L+1+N$ hiç artmaz, çünkü güncelleme yalnızca $k+N^*\le L+N$ iken yapılır. Bu yüzden sonlanma en geç $\bar N$'de olur.
   **[Yorum]** Ayırma tanımı "en fazla bir model" garanti eder. $|\mathbb I_{\text{out}}|=1$ olması, makalenin "bir $i^*$ aktif" varsayımına dayanır.
-- **Remark 1:** Algoritmada $u_{k+1}$, $y_{k+1}$ gelmeden hesaplanır. Bunun nedeni çevrimiçi optimizasyonun bir örnekleme süresine sığması gerekmesidir. Önceki sürümde (Raimondo, Braatz, Scott 2013) $u_{k+1}$, $y_{k+1}$'e bağlıydı.
+- **Remark 1:** Algoritmada $u_{k+1}$, $[k,k+1]$ aralığında, yani $y_{k+1}$ gelmeden hesaplanır. Önceki sürümde (Raimondo, Braatz, Scott 2013) $u_{k+1}$, $y_{k+1}$'e bağlıydı. Makaleye göre bu ancak çevrimiçi hesap örnekleme süresinden çok daha kısa sürerse anlamlıdır; burada bu olası değildir, ama açık (explicit) yöntem için mümkün olabilir.
 
 **(g) Açık (explicit) yöntem (Bölüm 5, s. 112–113).**
 

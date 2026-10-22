@@ -221,7 +221,7 @@
   - **IEEE 1547-2018, Tablo 14** (Şekil 1, s. 4):
     - 0,88 ≤ V ≤ 1,10 pu: sürekli işletme.
     - 0,70 ≤ V < 0,88 pu: zorunlu işletme. Ride-through süresi TVRT = 0,7 s + (4 s / 1 pu)·(V − 0,7 pu).
-    - 0,50 ≤ V < 0,70 pu: izinli işletme, 0,16 s.
+    - 0,50 ≤ V < 0,70 pu: izinli işletme, asgari ride-through süresi 0,16 s.
     - V < 0,50 pu ve V > 1,20 pu: enerjiyi kes, maksimum tepki süresi 0,16 s.
     - Makale tablonun hangi performans kategorisine ait olduğunu belirtmiyor. Benim bilgime göre bu tablo Kategori I'e ait; doğrulanmalı.
   - **NERC'in hazırlıktaki (henüz yürürlükte olmayan) üç standardı** (s. 4):
