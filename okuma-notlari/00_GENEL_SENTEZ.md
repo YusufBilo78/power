@@ -1,4 +1,4 @@
-# Genel sentez: 36 makaleden sonra proje nerede duruyor?
+# Genel sentez: 40 makaleden sonra proje nerede duruyor?
 
 Bu dosya `okuma-notlari/` klasöründeki bütün notların üstünde duruyor. Her iddianın kaynağı ilgili not dosyasında, sayfa numarasıyla birlikte var. "Bizim analizimiz" diye işaretlenen yerler makalelerde yazmıyor; benim çıkarımım ve henüz simülasyonla doğrulanmadı.
 
@@ -14,6 +14,7 @@ Bu dosya `okuma-notlari/` klasöründeki bütün notların üstünde duruyor. He
 | `C_teori_garantili_aktif_teshis.md` | Scott 2014, Raimondo 2016 | Okuma ajanı |
 | `D_ml_veri_setleri.md` | Makine öğrenmesi ve veri setleri (7 makale) | Okuma ajanı |
 | `E_pratik_role_ayarlari_SEL.md` | SEL'in mesafe rölesi ayar makaleleri (5 makale) ve adil temel çizgi kontrol listesi | Okuma ajanı |
+| `G1_saleh_banaiemoqadam_haddadi_yang.md` | Paywall'lı ilk dört: Saleh 2021, Banaiemoqadam 2020, Haddadi 2021, Yang/Popov 2023 | Ben, tam metin |
 
 Ajanların notlarını ben de okudum ve sentezlerini burada birleştirdim. Bir notta bir sayıya dayanmadan önce o makalenin ilgili sayfasına bakmak gerekiyor.
 
@@ -42,6 +43,8 @@ Ajanların notlarını ben de okudum ve sentezlerini burada birleştirdim. Bir n
 
 En yakın rakip **Yang–Dyśko 2024 (NSCI)**. İnvertör 80 ms boyunca 0.3 pu I2 basıyor ve haberleşme gerekmiyor. Ama eşikler elle seçilmiş, garanti yok ve karar yaklaşık 140 ms sürüyor (B). Projenin katkısı dört eksende konumlanmalı: **optimizasyon, garanti, hız ve mesafe rölesiyle uyum**.
 
+Optimizasyonla tasarlanmış enjeksiyona en yakın öncül **Saleh 2021** (G1). İnvertörler sentetik harmonik desenleri basıyor ve desenler bir tamsayı programıyla seçiliyor. Ama tasarım nominal bir modelde yapılıyor, şema haberleşme gerektiriyor, sadece adalanmış mikroşebekede çalışıyor, sadece yönü söylüyor ve karar 58 ms sürüyor.
+
 ## 3. İki tasarım paradigması: notlardaki en önemli birleştirici gözlem
 
 Notlarda birbirinden habersiz iki çizgi var.
@@ -49,12 +52,12 @@ Notlarda birbirinden habersiz iki çizgi var.
 | | (1) Toplamsal sinyal | (2) Tasarlanmış negatif bileşen empedansı |
 |---|---|---|
 | Ne | İnvertör akımına sabit bir δ ekle | İnvertör negatif bileşende belirli bir empedans gibi davransın |
-| Kim | Taylor (T2–T4), NSCI (B), Saleh | IEEE 2800 (I2 = K·V2), SEL sanal reaktör (A2), Li ve ark. sanal empedans (A2), Baeckeland φ_lim (T7) |
+| Kim | Taylor (T2–T4), NSCI (B), Saleh (G1) | IEEE 2800 ve VDE (I2 = K·V2; G1-HA), SEL sanal reaktör (A2), Li ve ark. sanal empedans (A2), Baeckeland φ_lim (T7), Banaiemoqadam'ın akım açısı α (G1), Yang/Popov'un gerçek zamanlı açı kontrolü (G1) |
 | Bulutlara etkisi | Bulutları **öteler** (C: "yalnızca öteleme" yapısı) | Bulutların **şeklini** değiştirir (çarpımsal) |
 | Teorisi | Taylor, Scott ve Raimondo hazır (C) | Küme tabanlı tasarımı yok. Teori notundaki "girişle çarpılan belirsiz parametreler" sorusu (C, açık soru 3) tam olarak bu |
 | Uyum | Sabit bir I2, röleler açısından "pasif kaynak" gibi görünmüyor (bkz. bölüm 4) | Endüktif bir Z2, klasik 32Q ile uyumlu (A2: 4 kaynak Z2 ≈ 80–90°'de birleşiyor) |
 
-Standartlar ve endüstri ikinci paradigmaya yöneliyor. Taylor çizgisi ise birincisinde. **İkisini aynı küme tabanlı çerçevede karşılaştırmak** literatürde yapılmamış ve bu projenin doğal sorusu olabilir: aynı akım bütçesinde hangisi daha büyük bir ayırma payı sağlıyor? Baeckeland'ın φ_lim'i ikinci paradigmanın en basit, tek parametreli hali (T7, F6).
+Standartlar ve endüstri ikinci paradigmaya yöneliyor. Taylor çizgisi ise birincisinde. **İkisini aynı küme tabanlı çerçevede karşılaştırmak** literatürde yapılmamış ve bu projenin doğal sorusu olabilir: aynı akım bütçesinde hangisi daha büyük bir ayırma payı sağlıyor? Baeckeland'ın φ_lim'i ve Banaiemoqadam'ın α'sı ikinci paradigmanın en basit, tek parametreli halleri (T7, G1, F6). İkinci paradigmadaki yöntemlerin hiçbiri garanti vermiyor. Banaiemoqadam tek bir en kötü durum noktasına ayar yapıyor; Yang/Popov ise ölçülen açıları gerçek zamanlı takip ediyor ama 40 ms gecikme istiyor (G1).
 
 ## 4. Sahadaki rölelerle etkileşim (bizim analizimiz)
 
@@ -77,9 +80,10 @@ Bu analiz işaret kurallarına dayanıyor. Basit bir devre simülasyonuyla doğr
 | 1 | **2 boyutlu tam çözücü:** gevşetme olmadan en küçük sinyal. Taylor'ın SDP'sini ve (1 − ζ)/χ sınırını buna karşı ölçmek | C, T (Taylor 2023 kontrolü bunun basit bir hali) | Küçük, bir öğrencinin uygulayabileceği boyutta; elimize kesin bir referans (ground truth) verir; Taylor çizgisinin açık sorusuna, yani gevşetmenin ne kadar iyi olduğuna doğrudan cevap verir | Düşük |
 | 2 | **Bütçe ve sınırlayıcı farkındalıklı, uyumlu tasarım:** faz akım sınırı SOC kısıtı olarak; standardın istediği I2 ile pay paylaşımı; IEEE 2800 açı penceresi ve 32Q ileri bölge kısıtları | A1, A2, B | Fiziksel öncülün koşullarını tasarımın içine koyuyor | Orta |
 | 3 | **Bölge içi ve bölge dışı:** Geometry çerçevesine komşu hat senaryosu (m_z > 1) eklemek | T (F2), E | Bölge 1 kararı Taylor çizgisinde açık bir boşluk | Orta |
-| 4 | **Paradigma (1) ile (2)'yi karşılaştırmak:** toplamsal δ'ya karşı tasarlanmış Z2 veya φ_lim | Bölüm 3, T7 (F6), A2 | Yeni ve standartların gittiği yöne bağlanıyor | Orta-yüksek |
+| 4 | **Paradigma (1) ile (2)'yi karşılaştırmak:** toplamsal δ'ya karşı tasarlanmış Z2, φ_lim veya α. En küçük hali, Banaiemoqadam'ın α'sını tek noktada değil bütün bir küme üzerinde seçmek | Bölüm 3, T7 (F6), A2, G1 | Yeni ve standartların gittiği yöne bağlanıyor | Orta-yüksek |
 | 5 | **Geometry'yi yeniden üretmek:** standart IEEE 14-bara verisiyle | T (F1), T7 | Çizginin ana makalesini doğrulamak ve 3–4. fikirler için zemin hazırlamak | Orta |
-| 6 | **Adil bir değerlendirme düzeni:** güvenlik test seti, nedensel akış, iki konvansiyonel temel çizgi (geleneksel ve zayıf besleme), NSCI'nin yeniden kurulması | D, E, B | Bu yapılmadan hiçbir karşılaştırma inandırıcı olmaz | Orta, ama sürekli |
+| 6 | **Frekans ayrımı (F7):** temel frekanstan farklı bir frekansta enjeksiyon. O frekansta ölçüm yalnızca bilinen sinyale bağlı olduğu için kaynak belirsizliği kayboluyor. Saleh'in pozitif bileşen hilesiyle doğal harmoniklerden ayrılabilir | G1 (Saleh + Taylor 2026 artımsal) | Taylor'ın en büyük belirsizlik kaynağını varsayım yapmadan ortadan kaldırabilir. Ark harmonikleri, pencere uzunluğu ve THD riskleri var; yenilik için literatür taraması gerekiyor | Orta |
+| 7 | **Adil bir değerlendirme düzeni:** güvenlik test seti, nedensel akış, iki konvansiyonel temel çizgi (geleneksel ve zayıf besleme), NSCI'nin yeniden kurulması | D, E, B | Bu yapılmadan hiçbir karşılaştırma inandırıcı olmaz | Orta, ama sürekli |
 
 ## 6. Danışmana sorulacak sorular
 
